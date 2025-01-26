@@ -1,6 +1,10 @@
 export default async function fetchWord(slug = "") {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL ||
+      (process.env.NODE_ENV === "production"
+        ? "https://www.watbetekent.be"
+        : "http://localhost:3000");
     const url = `${apiUrl}/api/words${slug ? `/${slug}` : ""}`;
 
     const res = await fetch(url, {

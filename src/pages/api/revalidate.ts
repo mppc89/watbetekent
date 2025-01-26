@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
-export async function GET(request: Request) {
+export default async function handler(request: Request) {
   try {
     revalidatePath("/sitemap.xml");
     console.log(`[Revalidate] Triggered at ${new Date().toISOString()}`);
