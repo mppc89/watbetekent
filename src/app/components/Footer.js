@@ -1,6 +1,10 @@
 export default function Footer({ words = [] }) {
+  if (!words || words.length === 0) {
+    return null;
+  }
+
   const wordsByCategory = words.reduce((acc, word) => {
-    if (!word.category) return acc;
+    if (!word?.category) return acc;
     if (!acc[word.category]) {
       acc[word.category] = [];
     }

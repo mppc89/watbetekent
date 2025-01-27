@@ -1,8 +1,8 @@
-import CategoryList from "./components/CategoryList?v=2";
+import CategoryList from "./components/CategoryList";
 import ChatWidget from "./components/ChatWidget";
 
 async function getCategories() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const res = await fetch(`${apiUrl}/api/words`, {
     cache: "no-store",
   });
