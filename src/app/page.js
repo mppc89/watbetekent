@@ -1,14 +1,28 @@
 import CategoryList from "./components/CategoryList";
 import ChatWidget from "./components/ChatWidget";
 
-async function getCategories() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const res = await fetch(`${apiUrl}/api/words`, {
-    cache: "no-store",
-  });
-  if (!res.ok) throw new Error("Failed to fetch categories");
-  const words = await res.json();
-  return [...new Set(words.map((word) => word.category))];
+export async function getCategories() {
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const res = await fetch(`${apiUrl}/words`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(
+        `Failed to fetch categories: ${res.status} ${res.statusText}`
+      );
+    }
+
+    const words = await res.json();
+    return [...new Set(words.map((word) => word.category))];
+  } catch (error) {
+    console.error("Error: Failed to fetch categories", error);
+    throw error;
+  }
 }
 
 export default async function HomePage() {
